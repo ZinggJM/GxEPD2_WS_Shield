@@ -6,6 +6,7 @@
 - For SPI e-paper displays from Dalian Good Display 
 - and SPI e-paper boards from Waveshare
 - Variant of GxEPD2 that uses the 128k SRAM of the shield for graphics buffer
+- of limited usefulness, but an interesting experiment (sram quality questionable)
 
 ### important note :
 - the display panels are for 3.3V supply and 3.3V data lines
@@ -70,6 +71,9 @@
 
 ### preliminary Version 1.0.0
 - pre-release test version
+- note that this library and example ONLY works with Arduino UNO; not successfully tested with any other board.
+- note that this example may or will show bad pixels or black traces on display, caused by sram errors.
+- note that tests have failed on Nucleo-F103RB and Wemos D1 R32
 
 ### GxEPD2 Version History
 

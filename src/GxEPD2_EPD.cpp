@@ -213,6 +213,7 @@ void GxEPD2_EPD::_sram_init()
 {
   digitalWrite(SPIRAM_CS, HIGH);
   pinMode(SPIRAM_CS, OUTPUT);
+  digitalWrite(SPIRAM_CS, HIGH);
   SPI.beginTransaction(_spi_settings);
   digitalWrite(SPIRAM_CS, LOW);
   SPI.transfer(CMD_WRSR);

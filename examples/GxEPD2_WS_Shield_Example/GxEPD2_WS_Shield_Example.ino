@@ -7,7 +7,7 @@
 //
 // Version: see library.properties
 //
-// Library: https://github.com/ZinggJM/GxEPD2
+// Library: https://github.com/ZinggJM/GxEPD2_WS_Shield
 
 // Supporting Arduino Forum Topics:
 // Waveshare e-paper displays with SPI: http://forum.arduino.cc/index.php?topic=487007.0
@@ -25,12 +25,12 @@
 #include <GxEPD2_3C.h>
 #include <Fonts/FreeMonoBold9pt7b.h>
 
-#if defined(ARDUINO_ARCH_STM32) && (defined(ARDUINO_NUCLEO_F103RB))
-// package STM32 Cores by STMicroelecronics version 1.5.0
-// Board Manager section: "STM32 Boards (selected from submenu)"
-// Board: "Nucleo-64"
-// Board part number: "Nucleo_F103RB"
-// Note: set SPI jumper switches to "on" for pin 11, 12, 13 use (no ICSP connector on Nucleo)
+#if defined(__AVR)
+// ***** for mapping of Waveshare Universal e-Paper Raw Panel Driver Shield for Arduino / NUCLEO *****
+// the RST line is not connected through level converter, but has a pull up resistor and a pull down diode to the Arduino pin; this is safe for 5V Arduino
+// NOTE: the 11-pinholes for pin connectors are not through level converter, and the VCC pin is ~4.2V, only FCP connector pins are through level converter
+// NOTE: the VCC pin on the 11-pinholes for pin connectors shouldn't be used, it seems to get back-fed from Arduino data pins through protection diodes of the level converter
+// NOTE: the VCC pin should be fed from Arduino 5V pin for use on any 5V Arduino (did they forget to add this connection or add a jumper?)
 // select one and adapt to your mapping
 //GxEPD2_BW<GxEPD2_154, GxEPD2_154::HEIGHT> display(GxEPD2_154(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
 //GxEPD2_BW<GxEPD2_213, GxEPD2_213::HEIGHT> display(GxEPD2_213(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDE0213B1, phased out
@@ -52,53 +52,12 @@
 //GxEPD2_3C<GxEPD2_750c, GxEPD2_750c::HEIGHT> display(GxEPD2_750c(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
 #endif
 
-#if defined(__AVR)
-// ***** for mapping of Waveshare Universal e-Paper Raw Panel Driver Shield for Arduino / NUCLEO *****
-// the RST line is not connected through level converter, but has a pull up resistor and a pull down diode to the Arduino pin; this is safe for 5V Arduino
-// NOTE: the 11-pinholes for pin connectors are not through level converter, and the VCC pin is ~4.2V, only FCP connector pins are through level converter
-// NOTE: the VCC pin on the 11-pinholes for pin connectors shouldn't be used, it seems to get back-fed from Arduino data pins through protection diodes of the level converter
-// select one and adapt to your mapping
-GxEPD2_BW<GxEPD2_154, GxEPD2_154::HEIGHT> display(GxEPD2_154(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_BW<GxEPD2_213, GxEPD2_213::HEIGHT> display(GxEPD2_213(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDE0213B1, phased out
-//GxEPD2_BW<GxEPD2_213_B72, GxEPD2_213_B72::HEIGHT> display(GxEPD2_213_B72(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEH0213B72
-//GxEPD2_BW<GxEPD2_213_flex, GxEPD2_213_flex::HEIGHT> display(GxEPD2_213_flex(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW0213I5F
-//GxEPD2_BW<GxEPD2_290, GxEPD2_290::HEIGHT> display(GxEPD2_290(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_BW<GxEPD2_290_T5, GxEPD2_290_T5::HEIGHT> display(GxEPD2_290_T5(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7)); // GDEW029T5
-//GxEPD2_BW<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_BW<GxEPD2_420, GxEPD2_420::HEIGHT> display(GxEPD2_420(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_BW<GxEPD2_583, GxEPD2_583::HEIGHT> display(GxEPD2_583(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_BW<GxEPD2_750, GxEPD2_750::HEIGHT> display(GxEPD2_750(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-// 3-color e-papers
-//GxEPD2_3C<GxEPD2_154c, GxEPD2_154c::HEIGHT> display(GxEPD2_154c(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_3C<GxEPD2_213c, GxEPD2_213c::HEIGHT> display(GxEPD2_213c(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_3C<GxEPD2_290c, GxEPD2_290c::HEIGHT> display(GxEPD2_290c(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_3C<GxEPD2_270c, GxEPD2_270c::HEIGHT> display(GxEPD2_270c(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_3C<GxEPD2_420c, GxEPD2_420c::HEIGHT> display(GxEPD2_420c(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_3C<GxEPD2_583c, GxEPD2_583c::HEIGHT> display(GxEPD2_583c(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-//GxEPD2_3C<GxEPD2_750c, GxEPD2_750c::HEIGHT> display(GxEPD2_750c(/*CS=10*/ SS, /*DC=*/ 9, /*RST=*/ 8, /*BUSY=*/ 7));
-#endif
+// note that this library and example ONLY works with Arduino UNO; not successfully tested with any other board.
+// note that this example may or will show bad pixels or black traces on display, caused by sram errors.
 
-#if !defined(__AVR) && !defined(_BOARD_GENERIC_STM32F103C_H_)
+// note that tests have failed on Nucleo-F103RB and Wemos D1 R32
 
-// comment out unused bitmaps to reduce code space used
-#include "bitmaps/Bitmaps200x200.h" // 1.54" b/w
-#include "bitmaps/Bitmaps104x212.h" // 2.13" b/w flexible GDEW0213I5F
-#include "bitmaps/Bitmaps128x250.h" // 2.13" b/w
-#include "bitmaps/Bitmaps128x296.h" // 2.9"  b/w
-#include "bitmaps/Bitmaps176x264.h" // 2.7"  b/w
-#include "bitmaps/Bitmaps400x300.h" // 4.2"  b/w
-#include "bitmaps/Bitmaps640x384.h" // 7.5"  b/w
-// 3-color
-#include "bitmaps/Bitmaps3c200x200.h" // 1.54" b/w/r
-#include "bitmaps/Bitmaps3c104x212.h" // 2.13" b/w/r
-#include "bitmaps/Bitmaps3c128x296.h" // 2.9"  b/w/r
-#include "bitmaps/Bitmaps3c176x264.h" // 2.7"  b/w/r
-#include "bitmaps/Bitmaps3c400x300.h" // 4.2"  b/w/r
-#if defined(ESP8266) || defined(ESP32)
-#include "bitmaps/WS_Bitmaps800x600.h" // 6.0"  grey
-#endif
-
-#else
+//#include "private_boards_added.h"
 
 // select only one to fit in code space
 #include "bitmaps/Bitmaps200x200.h" // 1.54" b/w
@@ -115,8 +74,6 @@ GxEPD2_BW<GxEPD2_154, GxEPD2_154::HEIGHT> display(GxEPD2_154(/*CS=10*/ SS, /*DC=
 //#include "bitmaps/Bitmaps3c176x264.h" // 2.7"  b/w/r
 ////#include "bitmaps/Bitmaps3c400x300.h" // 4.2"  b/w/r // not enough code space
 
-#endif
-
 void setup()
 {
   Serial.begin(115200);
@@ -127,25 +84,19 @@ void setup()
   //sram_test();
   // first update should be full refresh
   helloWorld();
-  Serial.println("setup 1");
   delay(1000);
   // partial refresh mode can be used to full screen,
   // effective if display panel hasFastPartialUpdate
   helloFullScreenPartialMode();
-  Serial.println("setup 2");
   delay(1000);
   helloArduino();
-  Serial.println("setup 3");
   delay(1000);
   helloEpaper();
-  Serial.println("setup 4");
   delay(1000);
   //helloValue(123.9, 1);
   //delay(1000);
   showFont("FreeMonoBold9pt7b", &FreeMonoBold9pt7b);
-  Serial.println("setup 5");
   delay(1000);
-  return;
   drawBitmaps();
   Serial.println("setup 6");
   if (display.epd2.hasPartialUpdate)
@@ -683,7 +634,7 @@ void drawBitmaps200x200()
 #if defined(__AVR)
   const unsigned char* bitmaps[] =
   {
-    logo200x200, first200x200 //, second200x200, third200x200, fourth200x200, fifth200x200, sixth200x200, senventh200x200, eighth200x200
+    logo200x200, //first200x200 //, second200x200, third200x200, fourth200x200, fifth200x200, sixth200x200, senventh200x200, eighth200x200
   };
 #elif defined(_BOARD_GENERIC_STM32F103C_H_)
   const unsigned char* bitmaps[] =
